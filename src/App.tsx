@@ -1,14 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import { getPopularMovie, type PopularMovie } from './api/popularMovieService.js';
 
 import './App.css';
-
-interface PopularMovie {
-	adult: boolean,
-	backdrop_path: string,
-	genre_ids: number[],
-	id: number,
-	original_language: string,
-}
 
 const GENRE_MAP: Record<number, string> = {
 	28: "Боевик",
@@ -35,27 +28,14 @@ const GENRE_MAP: Record<number, string> = {
 function App() {
 	const [popularMovie, setPopularMovie] = useState<PopularMovie[]>([]);
 
-	const url = 'https://api.themoviedb.org/3/movie/popular?';
-	const API_KEY = 'api_key=9215c0041417f320adc39d1057f57497&language=ru-RU';
 	const IMG_PATH = "https://image.tmdb.org/t/p/w300";
 
 	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await fetch(`${url}${API_KEY}`);
-				if (response.ok) {
-					const json = await response.json();
-					console.log(json);
-					setPopularMovie(json.results);
-				} else {
-					console.error('Fetch error:', response.status);
-				}
-			} catch (err) {
-				console.error(err);
-			}
+		const loadPopularMovie = async () => {
+			const data = await getPopularMovie();
+			setPopularMovie(data);
 		}
-
-		fetchData();
+		loadPopularMovie();
 	}, [])
 	return (
 		<>

@@ -44,9 +44,13 @@ function App() {
 					{popularMovie.map((movie) => (
 						<li key={movie.id}>
 							<img src={`${IMG_PATH}${movie.backdrop_path}`} alt={movie.original_language} />
+							<h2>{movie.title ? movie.title : movie.original_title}</h2>
+							<p>{movie.overview ? movie.overview : 'Описание отсутствует'}</p>
 							<p>{movie.genre_ids.map((id) => GENRE_MAP[id] || 'Неизвестно').join(', ')}</p>
 							<p>{movie.adult ? '18+' : 'Для всех возрастов'}</p>
 							<p>{movie.original_language}</p>
+							<p>{movie.vote_average ? movie.vote_average.toFixed(1) : 'Рейтинг отсутствует'}</p>
+							<p>{movie.release_date ? movie.release_date : 'Дата выхода отсутствует'}</p>
 						</li>
 					))}
 				</ul>

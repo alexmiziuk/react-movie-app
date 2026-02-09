@@ -4,6 +4,11 @@ export interface PopularMovie {
 	genre_ids: number[],
 	id: number,
 	original_language: string,
+	vote_average: number,
+	title: string,
+	original_title: string,
+	overview: string,
+	release_date: string,
 }
 
 const url = 'https://api.themoviedb.org/3/movie/popular?';
